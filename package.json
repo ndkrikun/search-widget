@@ -1,0 +1,47 @@
+{
+  "name": "search-widget",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack",
+    "lint": "tslint \"src/**/*.ts\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ndkrikun/search-widget.git"
+  },
+  "author": "ndkrikun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ndkrikun/search-widget/issues"
+  },
+  "homepage": "https://github.com/ndkrikun/search-widget#readme",
+  "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "awesome-typescript-loader": "^3.0.3",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-loader": "^7.1.2",
+    "css-loader": "^0.26.1",
+    "eslint": "^4.17.0",
+    "extract-text-webpack-plugin": "2.0.0-rc.3",
+    "source-map-loader": "^0.2.3",
+    "html-loader": "^0.4.5",
+    "node-sass": "^4.5.0",
+    "sass-loader": "^5.0.1",
+    "scss-loader": "0.0.1",
+    "style-loader": "^0.13.1",
+    "ts-node": "^3.0.4",
+    "tslint": "^5.7.0",
+    "typescript": "^2.6.2",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "@types/react": "^16.0.36",
+    "@types/react-dom": "^16.0.3",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  }
+}

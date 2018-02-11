@@ -1,8 +1,6 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const path = require('path');
-
 
 module.exports = {
   entry: {
@@ -50,10 +48,10 @@ module.exports = {
     extensions: ['.html', '.ts', '.tsx', '.js'],
   },
 
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM'
-  },
+  // externals: {
+  //   'react': 'React',
+  //   'react-dom': 'ReactDOM'
+  // },
 
   plugins: [
     new ExtractTextPlugin('application.css'),

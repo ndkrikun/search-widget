@@ -62,7 +62,6 @@ class UsersSearch {
       return !!word && !acc ? word : acc;
     }, '');
 
-    console.log({ filteredUsers, suggest });
     return { filteredUsers, suggest };
   }
 }

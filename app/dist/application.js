@@ -444,7 +444,7 @@ var UsersSearch = (function () {
      * @param substring part of word
      */
     UsersSearch.prototype.containsPattern = function (string, substring) {
-        return string.toLowerCase().includes(substring.toLowerCase());
+        return string.toLowerCase().indexOf(substring.toLowerCase()) >= 0;
     };
     /**
      * Tries to fing a suggest for search

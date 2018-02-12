@@ -55,9 +55,9 @@ class UsersSearch {
     string: string,
     substring: string
   ): boolean {
-    return string.toLowerCase().includes(
+    return string.toLowerCase().indexOf(
       substring.toLowerCase()
-    );
+    ) >= 0;
   }
 
   /**

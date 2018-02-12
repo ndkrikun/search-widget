@@ -13,3 +13,7 @@
 ## Build project before pushing to origin
 
 1. Build via `npm run dev`
+
+## Remote server
+
+`https://ndkrikun.github.io/search-widget/app/`

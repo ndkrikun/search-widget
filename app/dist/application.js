@@ -169,11 +169,20 @@ var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App(props) {
         var _this = _super.call(this, props) || this;
+        /**
+         * Application data
+         */
         _this.state = __assign({}, __WEBPACK_IMPORTED_MODULE_3__data_state__["a" /* defaultState */]);
+        /**
+         * Static user note
+         */
         _this.title = 'Here you can search for users from storage';
         _this.initUsers();
         return _this;
     }
+    /**
+     * Initializes users collection
+     */
     App.prototype.initUsers = function () {
         return __awaiter(this, void 0, void 0, function () {
             var users;
@@ -188,6 +197,10 @@ var App = /** @class */ (function (_super) {
             });
         });
     };
+    /**
+     * Butifies seach text
+     * @param search search fragment
+     */
     App.prototype.modifySearchText = function (search) {
         return search
             .toLowerCase()
@@ -199,12 +212,19 @@ var App = /** @class */ (function (_super) {
         })
             .join('');
     };
+    /**
+     * Sets state when input value changes
+     * @param event input change event
+     */
     App.prototype.changeSearch = function (event) {
         var search = this.modifySearchText(event.target.value);
         this.setState({ search: search });
         var _a = __WEBPACK_IMPORTED_MODULE_5__services_users_search_service__["a" /* usersSearchService */].search(this.state.users, this.state.search), suggest = _a.suggest, filteredUsers = _a.filteredUsers;
         this.setState({ suggest: suggest, filteredUsers: filteredUsers });
     };
+    /**
+     * React lifecycle hook
+     */
     App.prototype.render = function () {
         return (__WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("div", null,
             __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("h1", { className: 'title' }, this.title),
@@ -243,9 +263,17 @@ var Dropdown = /** @class */ (function (_super) {
     function Dropdown() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     * Returns styles for dropdown item image
+     * @param url item backgroung image path
+     */
     Dropdown.prototype.getBackgroundStyle = function (url) {
         return { backgroundImage: "url(" + url + ")" };
     };
+    /**
+     * Renders dropdown item
+     * @param user separate user
+     */
     Dropdown.prototype.renderItem = function (user) {
         var style = this.getBackgroundStyle(user.avatar);
         var title = __WEBPACK_IMPORTED_MODULE_1__services_users_storage_service__["a" /* usersStorageService */].getUserTitle(user);
@@ -253,6 +281,9 @@ var Dropdown = /** @class */ (function (_super) {
             __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("div", { className: 'dropdown__item-image', style: style }),
             __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("div", { className: 'dropdown__item-title' }, title)));
     };
+    /**
+     * React lifecycle hook
+     */
     Dropdown.prototype.render = function () {
         var _this = this;
         var users = this.props.users;
@@ -289,10 +320,16 @@ var SearchLine = /** @class */ (function (_super) {
     __extends(SearchLine, _super);
     function SearchLine() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        /**
+         * Static note for user
+         */
         _this.note = 'Start to typing name or surname (George, Rachel, Charles, etc)';
         return _this;
     }
     Object.defineProperty(SearchLine.prototype, "suggest", {
+        /**
+         * Returns sugges data (hidden and visible part)
+         */
         get: function () {
             var _a = this.props, suggest = _a.suggest, search = _a.search;
             var hidden = suggest.slice(0, search.length);
@@ -303,6 +340,9 @@ var SearchLine = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(SearchLine.prototype, "filled", {
+        /**
+         * Optional input class that is active when input is filled with some text
+         */
         get: function () {
             return this.props.search.length > 0
                 ? 'is-filled'
@@ -311,6 +351,9 @@ var SearchLine = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    /**
+     * React lifecycle hook
+     */
     SearchLine.prototype.render = function () {
         return (__WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("div", { className: 'search-line' },
             __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("label", null,
@@ -361,28 +404,62 @@ var defaultState = Object.freeze({
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return usersSearchService; });
+/**
+ * Service to search through users data
+ */
 var UsersSearch = (function () {
     function UsersSearch() {
+        /**
+         * Keys from user model that are required to be used in search logic
+         */
         this.searchKeys = Object.freeze([
             'first_name', 'last_name'
         ]);
     }
+    /**
+     * Checks if key is required for search
+     * @param key user model key
+     */
     UsersSearch.prototype.isNecessaryKey = function (key) {
         return this.searchKeys.indexOf(key) >= 0;
     };
+    /**
+     * Tells if search fragmet is valid to be used for search
+     * @param pattern serach fragment
+     */
     UsersSearch.prototype.isValidPattern = function (pattern) {
         return !!pattern && pattern.length > 1;
     };
+    /**
+     * Tells if subsctring goes from the beggining of string
+     * @param string word
+     * @param substring part of word
+     */
     UsersSearch.prototype.isBeginningPattern = function (string, substring) {
         return string.toLowerCase().indexOf(substring.toLowerCase()) === 0;
     };
+    /**
+     * Tells if string contains substring
+     * @param string word
+     * @param substring part of word
+     */
     UsersSearch.prototype.containsPattern = function (string, substring) {
         return string.toLowerCase().includes(substring.toLowerCase());
     };
+    /**
+     * Tries to fing a suggest for search
+     * @param user separate user
+     * @param pattern search fragment
+     */
     UsersSearch.prototype.getSuggest = function (user, pattern) {
         var _this = this;
         return Object.keys(user).reduce(function (acc, key) { return (_this.isNecessaryKey(key) && _this.isBeginningPattern(String(user[key]), pattern)) ? user[key] : acc; }, '');
     };
+    /**
+     * Public method that could be called from outside
+     * @param users collection of users
+     * @param pattern search fragment
+     */
     UsersSearch.prototype.search = function (users, pattern) {
         var _this = this;
         var filteredUsers = users.filter(function (user) {
@@ -415,20 +492,36 @@ var usersSearchService = new UsersSearch;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_api_keys__ = __webpack_require__("./app/src/data/api-keys.ts");
 
 
+/**
+ * Service to work with users data
+ */
 var UsersStorage = (function () {
     function UsersStorage() {
+        /**
+         * Api config
+         */
         this.config = __WEBPACK_IMPORTED_MODULE_1__data_api_keys__["a" /* apiMethods */].GET_USERS;
     }
     Object.defineProperty(UsersStorage.prototype, "url", {
+        /**
+         * Api pullpath to get users data
+         */
         get: function () {
             return __WEBPACK_IMPORTED_MODULE_1__data_api_keys__["b" /* API_ROOT */] + this.config.path;
         },
         enumerable: true,
         configurable: true
     });
+    /**
+     * Returns full name of specific user
+     * @param user specific user
+     */
     UsersStorage.prototype.getUserTitle = function (user) {
         return user.first_name + " " + user.last_name;
     };
+    /**
+     * Fetches users collection from API
+     */
     UsersStorage.prototype.get = function () {
         var _this = this;
         return new Promise(function (resolve) {

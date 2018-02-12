@@ -7,8 +7,14 @@ import { usersStorageService } from '../services/users-storage.service';
 import { usersSearchService } from '../services/users-search.service';
 
 export class App extends React.Component {
+  /**
+   * Application data
+   */
   public readonly state: AppState = { ...defaultState };
 
+  /**
+   * Static user note
+   */
   private readonly title = 'Here you can search for users from storage';
 
   constructor(
@@ -18,11 +24,18 @@ export class App extends React.Component {
     this.initUsers();
   }
 
+  /**
+   * Initializes users collection
+   */
   private async initUsers(): Promise<any> {
     const users = await usersStorageService.get();
     this.setState({ users });
   }
 
+  /**
+   * Butifies seach text
+   * @param search search fragment
+   */
   private modifySearchText(search: string): string {
     return search
       .toLowerCase()
@@ -35,6 +48,10 @@ export class App extends React.Component {
       .join('');
   }
 
+  /**
+   * Sets state when input value changes
+   * @param event input change event
+   */
   private changeSearch(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
@@ -50,6 +67,9 @@ export class App extends React.Component {
     this.setState({ suggest, filteredUsers });
   }
 
+  /**
+   * React lifecycle hook
+   */
   public render(): JSX.Element {
     return (
       <div>

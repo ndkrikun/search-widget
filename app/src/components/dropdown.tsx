@@ -11,13 +11,20 @@ interface BackgroundImageStyle {
 }
 
 export class Dropdown extends React.Component<DropdownProps, {}> {
-
+  /**
+   * Returns styles for dropdown item image
+   * @param url item backgroung image path
+   */
   private getBackgroundStyle(
     url: string
   ): BackgroundImageStyle {
     return { backgroundImage: `url(${url})` }
   }
 
+  /**
+   * Renders dropdown item
+   * @param user separate user
+   */
   private renderItem(
     user: User
   ): JSX.Element {
@@ -31,6 +38,9 @@ export class Dropdown extends React.Component<DropdownProps, {}> {
     )
   }
 
+  /**
+   * React lifecycle hook
+   */
   public render(): JSX.Element {
     const { users } = this.props;
     return !!users

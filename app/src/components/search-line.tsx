@@ -13,8 +13,14 @@ interface SuggestParts {
 }
 
 export class SearchLine extends React.Component<SearchLineProps, {}> {
+  /**
+   * Static note for user
+   */
   private readonly note = 'Start to typing name or surname (George, Rachel, Charles, etc)';
 
+  /**
+   * Returns sugges data (hidden and visible part)
+   */
   private get suggest(): SuggestParts {
     const { suggest, search } = this.props;
     const hidden = suggest.slice(0, search.length);
@@ -23,12 +29,18 @@ export class SearchLine extends React.Component<SearchLineProps, {}> {
     return { hidden, visible }
   }
 
+  /**
+   * Optional input class that is active when input is filled with some text
+   */
   private get filled(): string {
     return this.props.search.length > 0
       ? 'is-filled'
       : '';
   }
 
+  /**
+   * React lifecycle hook
+   */
   public render(): JSX.Element {
     return (
       <div className='search-line'><label>

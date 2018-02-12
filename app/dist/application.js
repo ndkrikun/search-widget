@@ -170,6 +170,7 @@ var App = /** @class */ (function (_super) {
     function App(props) {
         var _this = _super.call(this, props) || this;
         _this.state = __assign({}, __WEBPACK_IMPORTED_MODULE_3__data_state__["a" /* defaultState */]);
+        _this.title = 'Here you can search for users from storage';
         _this.initUsers();
         return _this;
     }
@@ -187,14 +188,26 @@ var App = /** @class */ (function (_super) {
             });
         });
     };
+    App.prototype.modifySearchText = function (search) {
+        return search
+            .toLowerCase()
+            .split('')
+            .map(function (char, i, array) {
+            return (i === 0 || array[i - 1] === ' ')
+                ? char.toUpperCase()
+                : char;
+        })
+            .join('');
+    };
     App.prototype.changeSearch = function (event) {
-        this.setState({ search: event.target.value });
+        var search = this.modifySearchText(event.target.value);
+        this.setState({ search: search });
         var _a = __WEBPACK_IMPORTED_MODULE_5__services_users_search_service__["a" /* usersSearchService */].search(this.state.users, this.state.search), suggest = _a.suggest, filteredUsers = _a.filteredUsers;
         this.setState({ suggest: suggest, filteredUsers: filteredUsers });
     };
     App.prototype.render = function () {
         return (__WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("div", null,
-            __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("h1", { className: 'title' }, "Start to typing name or surname (George, Rachel, Charles, etc)"),
+            __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("h1", { className: 'title' }, this.title),
             __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1__search_line__["a" /* SearchLine */], { search: this.state.search, suggest: this.state.suggest, onChange: this.changeSearch.bind(this) }),
             __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_2__dropdown__["a" /* Dropdown */], { users: this.state.filteredUsers })));
     };
@@ -275,7 +288,9 @@ var __extends = (this && this.__extends) || (function () {
 var SearchLine = /** @class */ (function (_super) {
     __extends(SearchLine, _super);
     function SearchLine() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.note = 'Start to typing name or surname (George, Rachel, Charles, etc)';
+        return _this;
     }
     Object.defineProperty(SearchLine.prototype, "suggest", {
         get: function () {
@@ -287,12 +302,23 @@ var SearchLine = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(SearchLine.prototype, "filled", {
+        get: function () {
+            return this.props.search.length > 0
+                ? 'is-filled'
+                : '';
+        },
+        enumerable: true,
+        configurable: true
+    });
     SearchLine.prototype.render = function () {
         return (__WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("div", { className: 'search-line' },
-            __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("span", { className: 'search-line__suggest' },
-                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("span", { className: 'search-line__suggest-hidden' }, this.suggest.hidden),
-                this.suggest.visible),
-            __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { className: 'search-line__input', placeholder: 'User', onChange: this.props.onChange.bind(this), onKeyDown: this.props.onChange.bind(this), onKeyUp: this.props.onChange.bind(this), onKeyPress: this.props.onChange.bind(this), onKeyDownCapture: this.props.onChange.bind(this), onKeyPressCapture: this.props.onChange.bind(this), onKeyUpCapture: this.props.onChange.bind(this) })));
+            __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("label", null,
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("span", { className: 'search-line__suggest' },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("span", { className: 'search-line__suggest-hidden' }, this.suggest.hidden),
+                    this.suggest.visible),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { className: "search-line__input " + this.filled, value: this.props.search, onChange: this.props.onChange.bind(this), onKeyDown: this.props.onChange.bind(this), onKeyUp: this.props.onChange.bind(this), onKeyPress: this.props.onChange.bind(this), onKeyDownCapture: this.props.onChange.bind(this), onKeyPressCapture: this.props.onChange.bind(this), onKeyUpCapture: this.props.onChange.bind(this) }),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("span", { className: 'search-line__note' }, this.note))));
     };
     return SearchLine;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]));

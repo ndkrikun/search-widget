@@ -126,7 +126,8 @@ h1.title {
   position: relative;
   width: 100%;
   height: 50px;
-  margin: 30px 0; }
+  margin: 30px 0;
+  overflow: hidden; }
   .search-line__suggest {
     position: absolute;
     top: 0;
@@ -145,6 +146,7 @@ h1.title {
     right: 0;
     bottom: 0;
     width: 100%;
+    padding-left: 0;
     font-family: Helvetica-light;
     font-size: 20px;
     background: transparent;
@@ -153,6 +155,24 @@ h1.title {
     transition: all 200ms ease; }
     .search-line__input:focus {
       border-bottom: 1px solid #408B82; }
+  .search-line__note {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+    white-space: nowrap;
+    word-wrap: normal;
+    font-size: 20px;
+    transition: all 200ms ease;
+    color: #000000;
+    opacity: .5; }
+  .search-line__input:focus ~ .search-line__note,
+  .search-line__input.is-filled ~ .search-line__note {
+    top: 0;
+    font-size: 11px;
+    opacity: 1; }
+  .search-line__input:focus ~ .search-line__note {
+    color: #408B82; }
 
 .dropdown__item {
   display: table;

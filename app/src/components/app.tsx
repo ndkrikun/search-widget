@@ -9,6 +9,8 @@ import { usersSearchService } from '../services/users-search.service';
 export class App extends React.Component {
   public readonly state: AppState = { ...defaultState };
 
+  private readonly title = 'Here you can search for users from storage';
+
   constructor(
     props: any
   ) {
@@ -21,10 +23,24 @@ export class App extends React.Component {
     this.setState({ users });
   }
 
+  private modifySearchText(search: string): string {
+    return search
+      .toLowerCase()
+      .split('')
+      .map((char, i, array) =>
+        (i === 0 || array[i - 1] === ' ')
+          ? char.toUpperCase()
+          : char
+      )
+      .join('');
+  }
+
   private changeSearch(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    this.setState({ search: event.target.value });
+    const search = this.modifySearchText(event.target.value);
+
+    this.setState({ search });
 
     const { suggest, filteredUsers } = usersSearchService.search(
       this.state.users,
@@ -37,7 +53,7 @@ export class App extends React.Component {
   public render(): JSX.Element {
     return (
       <div>
-        <h1 className='title'>Start to typing name or surname (George, Rachel, Charles, etc)</h1>
+        <h1 className='title'>{this.title}</h1>
         <SearchLine
           search={this.state.search}
           suggest={this.state.suggest}

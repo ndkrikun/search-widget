@@ -48,11 +48,6 @@ module.exports = {
     extensions: ['.html', '.ts', '.tsx', '.js'],
   },
 
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM'
-  },
-
   plugins: [
     new ExtractTextPlugin('application.css'),
     new webpack.NamedModulesPlugin(),

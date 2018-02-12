@@ -51,7 +51,7 @@ body {
   font-family: Helvetica-light;
   font-size: 62.5%;
   color: #000000;
-  background-color: #ffffff;
+  background-color: #E7F1EA;
   -webkit-font-smoothing: antialiased; }
 
 *:focus {
@@ -96,9 +96,6 @@ button {
   background: transparent;
   outline: none; }
 
-span.sprite {
-  display: inline-block; }
-
 .unsel {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -115,20 +112,84 @@ span.sprite {
 body.is-noscroll {
   overflow: hidden; }
 
-.search-line {
-  width: 400px;
+h1.title {
+  font-size: 14px;
+  line-height: 21px; }
+
+.container {
+  max-width: 800px;
+  min-width: 320px;
   margin: 0 auto;
-  padding-top: 150px; }
-  .search-line__input {
-    width: 100%;
-    height: 50px;
+  padding: 80px 20px 0; }
+
+.search-line {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 30px 0; }
+  .search-line__suggest {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     font-size: 20px;
-    border-top: 0px solid #000000;
-    border-left: 0px solid #000000;
-    border-right: 0px solid #000000;
+    line-height: 50px;
+    opacity: .4; }
+    .search-line__suggest-hidden {
+      opacity: 0; }
+  .search-line__input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    font-family: Helvetica-light;
+    font-size: 20px;
+    background: transparent;
+    border: none;
     border-bottom: 1px solid #000000;
     transition: all 200ms ease; }
     .search-line__input:focus {
-      border-bottom: 1px solid #2B74FA; }
+      border-bottom: 1px solid #408B82; }
+
+.dropdown__item {
+  display: table;
+  width: 100%;
+  padding: 10px 0;
+  cursor: pointer; }
+  .dropdown__item-image {
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat; }
+    .dropdown__item-image:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: transparent;
+      transition: all 200ms ease; }
+  .dropdown__item:hover .dropdown__item-image:after,
+  .dropdown__item:active .dropdown__item-image:after {
+    background-color: rgba(0, 0, 0, 0.4); }
+  .dropdown__item-title {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 15px;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+    transition: color 200ms ease; }
+  .dropdown__item:hover .dropdown__item-title,
+  .dropdown__item:active .dropdown__item-title {
+    color: #408B82; }
 
 /*# sourceMappingURL=application.css.map*/

@@ -37,7 +37,10 @@ export class App extends React.Component {
   public render(): JSX.Element {
     return (
       <div>
-        <SearchLine onChange={this.changeSearch.bind(this)} />
+        <SearchLine
+          search={this.state.search}
+          suggest={this.state.suggest}
+          onChange={this.changeSearch.bind(this)} />
         <Dropdown users={this.state.filteredUsers} />
       </div>
     );

@@ -1,4 +1,4 @@
-### Widget for searching through users collection data
+# Widget for searching through users collection data
 
 ## Launch project locally
 

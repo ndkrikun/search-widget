@@ -16,7 +16,7 @@ export class SearchLine extends React.Component<SearchLineProps, {}> {
   private get suggest(): SuggestParts {
     const { suggest, search } = this.props;
     const hidden = suggest.slice(0, search.length);
-    const visible = suggest.slice(search.length, suggest.length - 1);
+    const visible = suggest.slice(search.length, suggest.length);
 
     return { hidden, visible }
   }
@@ -30,6 +30,7 @@ export class SearchLine extends React.Component<SearchLineProps, {}> {
         </span>
         <input
           className='search-line__input'
+          placeholder='User'
           onChange={this.props.onChange.bind(this)}
           onKeyDown={this.props.onChange.bind(this)}
           onKeyUp={this.props.onChange.bind(this)}

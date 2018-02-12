@@ -1,12 +1,13 @@
 .dropdown
-  position: absolute
 
   &__item
     display: table
     width: 100%
     padding: 10px 0
+    cursor: pointer
 
     &-image
+      position: relative
       display: table-cell
       vertical-align: middle
       width: 40px
@@ -14,10 +15,26 @@
       background-size: cover
       background-position: center center
       background-repeat: no-repeat
+      &:after
+        content: ''
+        +absolute-full
+        background-color: rgba(0, 0, 0, 0)
+        transition: all 200ms ease
+
+    &:hover &-image:after,
+    &:active &-image:after
+      background-color: rgba(0, 0, 0, .4)
+      
 
     &-title
       display: table-cell
       vertical-align: middle
       padding-left: 15px
-      font-size: 16px
-      line-height: 20px
+      font-size: 18px
+      line-height: 22px
+      color: $black1
+      transition: color 200ms ease
+
+    &:hover &-title,
+    &:active &-title
+      color: $green1

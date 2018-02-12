@@ -37,6 +37,7 @@ export class App extends React.Component {
   public render(): JSX.Element {
     return (
       <div>
+        <h1 className='title'>Start to typing name or surname (George, Rachel, Charles, etc)</h1>
         <SearchLine
           search={this.state.search}
           suggest={this.state.suggest}
